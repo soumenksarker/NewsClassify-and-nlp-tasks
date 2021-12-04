@@ -1,4 +1,4 @@
-nltk==3.6.5
+nltk
 numpy
 Pillow==8.4.0
 scipy==1.7.3
