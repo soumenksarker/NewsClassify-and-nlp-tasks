@@ -1,6 +1,7 @@
 
-# s_to_t
-Text sentiment classification and emoji extraction
+# 
+NewsClassify-and-nlp-tasks
+News Text classification and nlp tasks like tokenization, POS and NER
 #run requirements.txt
 #streamlit run app.py
 #upload to github
