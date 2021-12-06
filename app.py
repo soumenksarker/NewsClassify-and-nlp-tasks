@@ -1,13 +1,14 @@
 import streamlit as st 
 import joblib,os
-import pandas as pd
 import spacy
+import pandas as pd
+nlp = spacy.load('en_core_web_sm')
 import matplotlib.pyplot as plt 
 import matplotlib
 matplotlib.use("Agg")
 from PIL import Image
 from wordcloud import WordCloud, STOPWORDS, ImageColorGenerator
-nlp = spacy.load('en_core_web_sm')
+
 
 # load Vectorizer For Gender Prediction
 news_vectorizer = open("models/final_news_cv_vectorizer.pkl","rb")
@@ -35,11 +36,10 @@ def main():
 	"""News Classifier"""
 	st.title("News Classifier")
 	# st.subheader("ML App with Streamlit")
-        html_temp = """
+	html_temp = """
 	<div style="background-color:blue;padding:10px">
 	<h1 style="color:white;text-align:center;">Streamlit ML App </h1>
 	</div>
-
 	"""
 	st.markdown(html_temp,unsafe_allow_html=True)
 
@@ -51,7 +51,7 @@ def main():
 		st.info("Prediction with ML")
 
 		news_text = st.text_area("Enter News Here","Type Here")
-		all_ml_models = ["LR","RFOREST","DECISION_TREE"]
+		all_ml_models = ["LR","RFOREST","NB","DECISION_TREE"]
 		model_choice = st.selectbox("Select Model",all_ml_models)
 
 		prediction_labels = {'business': 0,'tech': 1,'sport': 2,'health': 3,'politics': 4,'entertainment': 5}
@@ -64,6 +64,10 @@ def main():
 				# st.write(prediction)
 			elif model_choice == 'RFOREST':
 				predictor = load_prediction_models("models/newsclassifier_RFOREST_model.pkl")
+				prediction = predictor.predict(vect_text)
+				# st.write(prediction)
+			elif model_choice == 'NB':
+				predictor = load_prediction_models("models/newsclassifier_NB_model.pkl")
 				prediction = predictor.predict(vect_text)
 				# st.write(prediction)
 			elif model_choice == 'DECISION_TREE':
@@ -126,6 +130,3 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
-# By Jesse E.Agbe(JCharis)
-# Jesus Saves@JCharisTech
